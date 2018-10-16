@@ -15,3 +15,5 @@ import: https://stackoverflow.com/questions/2061094/importing-maven-project-into
 Run from terminal
 
 $ cd target && java -cp ai-1.0-SNAPSHOT.jar:lib/* org.example.App
+
+More example at https://spark.apache.org/docs/2.3.1/ml-features.html
