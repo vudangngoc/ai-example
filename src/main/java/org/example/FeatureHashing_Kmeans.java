@@ -33,7 +33,7 @@ public class FeatureHashing_Kmeans
 		List<Row> data = importData();
 		Dataset<Row> predictions = kmean(spark, schema, data);
 
-		predictions.show(false);
+		predictions.show(10000,false);
 		spark.stop();
 	}
 	private static List<Row> importData()
