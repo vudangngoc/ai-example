@@ -15,6 +15,19 @@
 	</properties>
 
 	<dependencies>
+	<!-- https://mvnrepository.com/artifact/org.apache.mahout/mahout-core -->
+<dependency>
+    <groupId>org.apache.mahout</groupId>
+    <artifactId>mahout-core</artifactId>
+    <version>0.9-cdh5.15.0</version>
+</dependency>
+	<!-- https://mvnrepository.com/artifact/org.apache.mahout/mahout-integration -->
+<dependency>
+    <groupId>org.apache.mahout</groupId>
+    <artifactId>mahout-integration</artifactId>
+    <version>0.9-cdh5.15.0</version>
+</dependency>
+	
 		<dependency>
 			<groupId>org.apache.spark</groupId>
 			<artifactId>spark-core_2.11</artifactId>
@@ -39,6 +52,13 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	  <repositories>
+    <repository>
+      <id>cloudera</id>
+      <name>cloudera</name>
+      <url>https://repository.cloudera.com/content/repositories/releases/</url>
+    </repository>
+  </repositories>
 	<build>
 		<plugins>
 			<plugin>
