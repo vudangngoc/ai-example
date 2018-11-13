@@ -12,7 +12,7 @@ public class CanopyCluster <K> extends Cluster<K>
 
 	/**
 	 */
-	private  List<CanopyCluster<K>> childrenCluster = new ArrayList<CanopyCluster<K>>();
+	private  List<Cluster<K>> childrenCluster = new ArrayList<Cluster<K>>();
 	
 	public CanopyCluster(K centerPk, double[] vector) {
 		super(centerPk, vector);
@@ -28,9 +28,9 @@ public class CanopyCluster <K> extends Cluster<K>
 	
 	public Set<K> getPKs()
 	{
-		throw new IllegalAccessError("Shouldn't be called");
+		return null;
 	}
-	public List<CanopyCluster<K>> getChildrenCluster()
+	public List<Cluster<K>> getChildrenCluster()
 	{
 		return this.childrenCluster;
 	}

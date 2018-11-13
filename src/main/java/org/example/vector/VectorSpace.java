@@ -47,7 +47,7 @@ public class VectorSpace<K,R,V>
 			if(temp.getChildrenCluster().isEmpty() ) {
 				shouldCreateNewCluster = checkOneCluster(vector, id, result, temp)?true:shouldCreateNewCluster; 
 			} else {
-				for(CanopyCluster<K> c : temp.getChildrenCluster()) {
+				for(Cluster<K> c : temp.getChildrenCluster()) {
 					
 				}
 			}

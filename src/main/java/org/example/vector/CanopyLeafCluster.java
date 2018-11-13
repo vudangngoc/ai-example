@@ -38,9 +38,9 @@ public class CanopyLeafCluster <K> extends Cluster<K>
 		result.addAll(records2);
 		return result;
 	}
-	public List<CanopyLeafCluster<K>> getChildrenCluster()
+	public List<Cluster<K>> getChildrenCluster()
 	{
-		throw new IllegalAccessError("Shouldn't be called");
+		return null;
 	}
 	public boolean remove(String pk)
 	{

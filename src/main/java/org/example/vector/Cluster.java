@@ -3,9 +3,11 @@
  */
 package org.example.vector;
 
+import java.util.*;
+
 /**
  */
-public class Cluster<K>
+public abstract class Cluster<K>
 {
 	double[] centerVector;
 	K center;
@@ -14,7 +16,8 @@ public class Cluster<K>
 		this.center = center;
 		this.centerVector = centerVector;
 	}
-
+	public abstract List<Cluster<K>> getChildrenCluster();
+	public abstract Set<K> getPKs();
 	public double[] getCenterVector()
 	{
 		return this.centerVector;
