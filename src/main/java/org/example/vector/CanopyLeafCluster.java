@@ -7,28 +7,18 @@ import java.util.*;
 
 /**
  */
-public class ClusterImpl <K>
+public class CanopyLeafCluster <K> extends Cluster<K>
 {
-	public K center;
-	/**
-	 */
-	private final List<ClusterImpl<K>> childrenCluster = new ArrayList<>();
-	
 
-	private final Set<K> records1 = new HashSet<>();
-	private final Set<K> records2 = new HashSet<>();
-	final double[] vector;
 
-	public double[] getVector()
-	{
-		return this.vector;
+	private  Set<K> records1= new HashSet<>();
+	private  Set<K> records2 = new HashSet<>();
+
+	public CanopyLeafCluster(K centerPk, double[] vector) {
+		super(centerPk, vector);
+		records1.add(centerPk); 
 	}
-	public ClusterImpl(K centerPk, double[] vector) {
-		this.center = centerPk;
-		records1.add(centerPk); //TODO maybe duplicate work
-		this.vector = vector;
-	}
-	
+
 	public void addRecord(K pk, boolean isTightThreshold)
 	{
 		if(isTightThreshold)
@@ -40,7 +30,7 @@ public class ClusterImpl <K>
 	/**
 	 * expensive method
 	 */
-	
+
 	public Set<K> getPKs()
 	{
 		Set<K> result = new HashSet<>(); // TODO not good performance
@@ -48,14 +38,10 @@ public class ClusterImpl <K>
 		result.addAll(records2);
 		return result;
 	}
-	public List<ClusterImpl<K>> getChildrenCluster()
+	public List<CanopyLeafCluster<K>> getChildrenCluster()
 	{
-		return this.childrenCluster;
+		throw new IllegalAccessError("Shouldn't be called");
 	}
-	public K getCenter() {
-		return this.center;
-	}
-	
 	public boolean remove(String pk)
 	{
 		if(center.equals(pk)) {
@@ -70,5 +56,7 @@ public class ClusterImpl <K>
 		}
 		return false;
 	}
-	public void addChildCluster(ClusterImpl<K> cluster) {}
+	public void addChildCluster(CanopyLeafCluster<K> cluster) {
+		throw new IllegalAccessError("Shouldn't be called");
+	}
 }
