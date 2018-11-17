@@ -7,42 +7,45 @@ import java.util.*;
 
 /**
  */
-public class CanopyCluster <K> extends Cluster<K>
+public class CanopyCluster <T> extends Cluster<T>
 {
 
 	/**
 	 */
-	private  List<CanopyCluster<K>> childrenCluster = new ArrayList<CanopyCluster<K>>();
+	private  List<CanopyCluster<T>> childrenCluster = new ArrayList<>();
+	private CanopyCluster<T> parent;
 	
-	public CanopyCluster(K centerPk, double[] vector) {
-		super(centerPk, vector);
+	public CanopyCluster(VectorSpace<?, ?, ?> vs,CanopyCluster<T> parent ,DataPoint<T> centerPk) {
+		super(vs,centerPk);
+		this.parent = parent;
+	}
+	public CanopyCluster<T> getParentCluster(){
+		return this.parent;
 	}
 	
-	public void addRecord(K pk, boolean isTightThreshold)
+	public Set<DataPoint<T>> getDataPoints()
 	{
-		throw new IllegalAccessError("Shouldn't be called");
+		return Collections.EMPTY_SET;
 	}
-	/**
-	 * expensive method
-	 */
-	
-	public Set<K> getPKs()
-	{
-		throw new IllegalAccessError("Shouldn't be called");
-	}
-	public List<CanopyCluster<K>> getChildrenCluster()
+	public List<CanopyCluster<T>> getChildrenCluster()
 	{
 		return this.childrenCluster;
 	}
-	public K getCenter() {
+	public DataPoint<T> getCenter() {
 		return this.center;
 	}
-	
-	public boolean remove(String pk)
+	private void splitCluster() {
+		// TODO implement me
+	}
+	public boolean remove(T data)
 	{
 		throw new IllegalAccessError("Shouldn't be called");
 	}
-	public void addChildCluster(CanopyCluster<K> cluster) {
+	public void addChildCluster(CanopyCluster<T> cluster) {
 		// TODO implement me
+	}
+	public List<CanopyLeafCluster<T>>  addRecord(DataPoint<T> datapoint) {
+		// TODO Auto-generated method stub
+		return Collections.EMPTY_LIST;
 	}
 }

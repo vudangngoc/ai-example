@@ -7,56 +7,67 @@ import java.util.*;
 
 /**
  */
-public class CanopyLeafCluster <K> extends Cluster<K>
+public  class  CanopyLeafCluster <T> extends CanopyCluster<T>
 {
 
-
-	private  Set<K> records1= new HashSet<>();
-	private  Set<K> records2 = new HashSet<>();
-
-	public CanopyLeafCluster(K centerPk, double[] vector) {
-		super(centerPk, vector);
-		records1.add(centerPk); 
+	private static int MAX_RECORD = 8;
+	private double[][] adjacencyMatrix = new double[MAX_RECORD+1][MAX_RECORD+1];
+	private  Set<DataPoint<T>> records= new HashSet<>();
+	public CanopyLeafCluster(VectorSpace<?, ?, ?> vs,CanopyCluster<T> parent ,DataPoint<T> centerPk) {
+		super(vs,parent,centerPk);
+		records.add(centerPk); 
+		
 	}
 
-	public void addRecord(K pk, boolean isTightThreshold)
+	protected CanopyLeafCluster<T> addRecordPrivate(DataPoint<T> pk)
 	{
-		if(isTightThreshold)
-			records1.add(pk);
-		else
-			records2.add(pk);
-
-	}
-	/**
-	 * expensive method
-	 */
-
-	public Set<K> getPKs()
-	{
-		Set<K> result = new HashSet<>(); // TODO not good performance
-		result.addAll(records1);
-		result.addAll(records2);
-		return result;
-	}
-	public List<CanopyLeafCluster<K>> getChildrenCluster()
-	{
-		throw new IllegalAccessError("Shouldn't be called");
-	}
-	public boolean remove(String pk)
-	{
-		if(center.equals(pk)) {
-			records1.remove(pk);
-			if(records1.size() > 1)
-				center = records1.iterator().next();
-			else 
-				center = null;
-		} else {
-			records1.remove(pk);
-			records2.remove(pk);
+		if(records.contains(pk))
+			return this;
+		records.add(pk);
+		int adjacencyIndex = 0;
+		double minDistance = Double.MAX_VALUE;
+		int i = 0;
+		for(DataPoint<T> d : records) {
+			
+			double tempDistance = this.getVectorSpace().distance(d.vector, pk.vector);
+			if(minDistance > tempDistance) {
+				minDistance = tempDistance;
+				adjacencyIndex = i;
+			}
+			i++;
 		}
+		adjacencyMatrix[this.records.size() - 1][i] = minDistance;
+		if(this.records.size() > MAX_RECORD)
+			return splitCluster();
+		return this;
+	}
+
+	private CanopyLeafCluster<T> splitCluster() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Set<DataPoint<T>> getDataPoints()
+	{
+		return records;
+	}
+	
+	public List<CanopyCluster<T>> getChildrenCluster()
+	{
+		return Collections.EMPTY_LIST;
+	}
+	public boolean remove(T data)
+	{
+		// TODO implement me
 		return false;
 	}
-	public void addChildCluster(CanopyLeafCluster<K> cluster) {
+	public void addChildCluster(CanopyLeafCluster<DataPoint> cluster) {
 		throw new IllegalAccessError("Shouldn't be called");
+	}
+	/**
+	 * Call after finish clustering
+	 */
+	public void cleanMemory() {
+		this.adjacencyMatrix = null;
 	}
 }

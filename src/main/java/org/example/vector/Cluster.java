@@ -5,27 +5,24 @@ package org.example.vector;
 
 /**
  */
-public class Cluster<K>
+public class Cluster<T>
 {
-	double[] centerVector;
-	K center;
-	public Cluster(K center, double[] centerVector)
+	DataPoint<T> center;
+	private VectorSpace<?, ?, ?> vs;
+
+	public Cluster(VectorSpace<?, ?, ?> vs ,DataPoint<T> center)
 	{
+		this.vs = vs;
 		this.center = center;
-		this.centerVector = centerVector;
 	}
-
-	public double[] getCenterVector()
-	{
-		return this.centerVector;
-	}
-
-	public K getCenter()
+	public DataPoint<T> getCenter()
 	{
 		return this.center;
 	}
-	public void updateCenter(K center, double[] centerVector) {
+	public void updateCenter(DataPoint<T> center) {
 		this.center = center;
-		this.centerVector = centerVector;
+	}
+	public VectorSpace<?, ?, ?> getVectorSpace() {
+		return this.vs;
 	}
 }
