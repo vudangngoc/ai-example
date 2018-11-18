@@ -68,6 +68,6 @@ public class VectorSpace<K,R,V>
 
 	}
 	public void afterIndexing() {
-		// TODO clean all unuse value
+		this.root.cleanMemory();
 	}
 }

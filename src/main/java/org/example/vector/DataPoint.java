@@ -1,7 +1,5 @@
 package org.example.vector;
 
-import java.util.Arrays;
-
 public class DataPoint<T> {
 	T data;
 	double[] vector;

@@ -18,7 +18,10 @@ public  class  CanopyLeafCluster <T> extends CanopyCluster<T>
 		records.add(centerPk); 
 		
 	}
-
+	public List<CanopyLeafCluster<T>>  addRecord(DataPoint<T> datapoint) {
+		CanopyLeafCluster<T> cluster = this.addRecordPrivate(datapoint);
+		return Arrays.asList(new CanopyLeafCluster[] {cluster});
+	}
 	protected CanopyLeafCluster<T> addRecordPrivate(DataPoint<T> pk)
 	{
 		if(records.contains(pk))
@@ -36,7 +39,7 @@ public  class  CanopyLeafCluster <T> extends CanopyCluster<T>
 			}
 			i++;
 		}
-		adjacencyMatrix[this.records.size() - 1][i] = minDistance;
+		adjacencyMatrix[this.records.size() - 1][adjacencyIndex] = minDistance;
 		if(this.records.size() > MAX_RECORD)
 			return splitCluster();
 		return this;
@@ -61,7 +64,7 @@ public  class  CanopyLeafCluster <T> extends CanopyCluster<T>
 		// TODO implement me
 		return false;
 	}
-	public void addChildCluster(CanopyLeafCluster<DataPoint> cluster) {
+	public void addChildCluster(CanopyCluster<T> cluster) {
 		throw new IllegalAccessError("Shouldn't be called");
 	}
 	/**

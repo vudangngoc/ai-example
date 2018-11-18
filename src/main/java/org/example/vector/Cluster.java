@@ -5,7 +5,7 @@ package org.example.vector;
 
 /**
  */
-public class Cluster<T>
+public abstract class Cluster<T>
 {
 	DataPoint<T> center;
 	private VectorSpace<?, ?, ?> vs;
@@ -25,4 +25,5 @@ public class Cluster<T>
 	public VectorSpace<?, ?, ?> getVectorSpace() {
 		return this.vs;
 	}
+	public abstract void cleanMemory();
 }
