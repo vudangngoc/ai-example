@@ -44,6 +44,24 @@ public class CanopyCluster <T> extends Cluster<T>
 
 	private void splitCluster() {
 		// TODO implement me
+		int i =0;
+		int j = 0;
+		double temp = adjacencyMatrix[i][j];
+		for(int row = 0; row < MAX_CHILDREN+1;row++)
+			for( int col = row; col < MAX_CHILDREN +1;col++) {
+				if(temp<adjacencyMatrix[row][col]) {
+					temp = adjacencyMatrix[row][col];
+					i = row;
+					j= col;
+				}
+			}
+		List<CanopyCluster<T>> child1 = new ArrayList<>();
+		List<CanopyCluster<T>> child2 = new ArrayList<>();
+		while(i != j) {
+//			for(int index = 0;index < )
+			// TODO travel and assign  
+		}
+		
 	}
 
 	public boolean remove(T data)
