@@ -37,7 +37,7 @@ public class VectorSpace<K,R,V>
 	}
 
 
-	public double distance(double[] vector, double[] ds)
+	public double euclideanDistance(double[] vector, double[] ds)
 	{
 		if(ds == null)
 			return Double.MAX_VALUE;
@@ -49,7 +49,12 @@ public class VectorSpace<K,R,V>
 		}
 		return Math.pow(result,0.5);
 	}
-
+	public double cheapDistance(double[] vector, double[] ds) {
+		double result = 0d;
+		for(int i = 0; i < vector.length; i++)
+			result += weights[i]*(vector[i] > ds[i]?vector[i] - ds[i]:ds[i]-vector[i]);
+		return result;
+	}
 	public Set<V> getSimilarRecords(K pk){
 		// TODO optimize me
 		Set<DataPoint<V>> suspectPks = new HashSet<>();

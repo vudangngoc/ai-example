@@ -55,13 +55,33 @@ public class CanopyCluster <T> extends Cluster<T>
 					j= col;
 				}
 			}
+		adjacencyMatrix[i][j] = 0;// Break edge
 		List<CanopyCluster<T>> child1 = new ArrayList<>();
 		List<CanopyCluster<T>> child2 = new ArrayList<>();
-		while(i != j) {
-//			for(int index = 0;index < )
-			// TODO travel and assign  
+		double[][] newAdjacencyMatrix1 = new double[MAX_CHILDREN+1][];
+		double[][] newAdjacencyMatrix2 = new double[MAX_CHILDREN+1][];
+		addVerticesToList(child1,newAdjacencyMatrix1,i);
+		addVerticesToList(child2,newAdjacencyMatrix2,j);
+		// TODO assign new center
+	}
+
+	private void addVerticesToList(List<CanopyCluster<T>> childrenCluster,double[][] newAdjacencyMatrix, int i) {
+		childrenCluster.add(this.childrenCluster.get(i));
+		int newIndex = childrenCluster.size() - 1;
+//		int addedCluster = 0;
+		for(int index = 0; index < MAX_CHILDREN+1; index++) {
+			if(index < i) {
+				if(adjacencyMatrix[i][index] > 0) {
+					newAdjacencyMatrix[newIndex][childrenCluster.size()] = adjacencyMatrix[i][index];					
+					addVerticesToList(childrenCluster,newAdjacencyMatrix, index);
+				}
+			}else {
+				if(adjacencyMatrix[index][i] > 0) {
+					newAdjacencyMatrix[newIndex][childrenCluster.size()] = adjacencyMatrix[index][i];
+					addVerticesToList(childrenCluster,newAdjacencyMatrix, index);
+				}
+			}
 		}
-		
 	}
 
 	public boolean remove(T data)
@@ -77,7 +97,7 @@ public class CanopyCluster <T> extends Cluster<T>
 		int i = 0;
 		for(CanopyCluster<T> d : childrenCluster) {
 
-			double tempDistance = this.getVectorSpace().distance(d.center.vector, vector);
+			double tempDistance = this.getVectorSpace().euclideanDistance(d.center.vector, vector);
 			if(minDistance > tempDistance) {
 				minDistance = tempDistance;
 				adjacencyIndex = i;
@@ -93,7 +113,7 @@ public class CanopyCluster <T> extends Cluster<T>
 		List<CanopyLeafCluster<T>> result = new ArrayList<>();
 		boolean shouldCreateNewCluster = true;
 		for(CanopyCluster<T> c : childrenCluster) {
-			double distance = this.getVectorSpace().distance(datapoint.vector, c.center.vector);
+			double distance = this.getVectorSpace().euclideanDistance(datapoint.vector, c.center.vector);
 			if(distance < this.threshold ) {
 				result.addAll(c.addRecord(datapoint));
 			}

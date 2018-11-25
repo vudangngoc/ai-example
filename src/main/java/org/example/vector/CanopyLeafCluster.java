@@ -32,7 +32,7 @@ public  class  CanopyLeafCluster <T> extends CanopyCluster<T>
 		int i = 0;
 		for(DataPoint<T> d : records) {
 			
-			double tempDistance = this.getVectorSpace().distance(d.vector, pk.vector);
+			double tempDistance = this.getVectorSpace().euclideanDistance(d.vector, pk.vector);
 			if(minDistance > tempDistance) {
 				minDistance = tempDistance;
 				adjacencyIndex = i;
